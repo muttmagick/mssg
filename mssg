@@ -1,0 +1,33 @@
+#!/bin/sh
+# Variables
+INPUT_DIR="${1:-.}"
+OUTPUT_DIR="${2:-./output}"
+TEMPLATES_DIR="./templates"
+# Create output directory if it doesn't exist
+mkdir -p "$OUTPUT_DIR"
+# Loop through all .md files in the input directory
+for FILE in "$INPUT_DIR"/*.md; do
+	# Get the filename without the extension
+	BASENAME=$(basename "$FILE" .md)
+	# Convert the Markdown file to HTML using Pandoc
+	pandoc -s "$FILE" -o "$OUTPUT_DIR/$BASENAME.html" \
+	       --template="$TEMPLATES_DIR/template.html"
+done
+# Copy static assets to the output directory
+cp -r "$TEMPLATES_DIR/assets" "$OUTPUT_DIR"
+
+#   This script assumes that you have already installed the Pandoc package to
+#   convert Markdown to HTML. It also assumes you have a `templates` directory
+#   containing a `template.html` file and an `assets` directory with static
+#   assets like CSS and JavaScript.  To use this script, navigate to the
+#   directory containing your Markdown files and the templates directory: cd
+#   /path/to/markdown/files Then run the script with the input and output
+#   directories as arguments: /path/to/script.sh ./input_directory
+#   ./output_directory
+
+#   If you don't provide input and output directories, it will use the current
+#   directory and create an `output` directory.
+
+# kindrobot . There y'go acdw
+#      acdw . ahah thanks
+#      acdw . lemme throw that in muttmagick/mssg
